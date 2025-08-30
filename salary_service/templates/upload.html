@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f4f7f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #334E68;
+  }
+
+  input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 0.35rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  button {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+  }
+
+  button:hover {
+    background-color: #357ABD;
+  }
+
+  p {
+    max-width: 500px;
+    margin: 1rem auto;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  p.error {
+    color: #d9534f;
+    font-weight: 600;
+  }
+
+  p.success a {
+    color: #4a90e2;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  p.success a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data" novalidate>
+  <label for="base_salary_file">Base Salary Excel file:</label>
+  <input type="file" id="base_salary_file" name="base_salary_file" accept=".xlsx" required />
+
+  <label for="attendance_file">Attendance Excel file:</label>
+  <input type="file" id="attendance_file" name="attendance_file" accept=".xlsx" required />
+
+  <label for="deductions_file">Advances and Personal Expenses Excel file:</label>
+  <input type="file" id="deductions_file" name="deductions_file" accept=".xlsx" required />
+
+  <button type="submit">Compute Salary</button>
+</form>
+
+{% if output_url %}
+  <p class="success">Salary computation successful. <a href="{{ output_url }}" target="_blank" rel="noopener">Download Salary File</a></p>
+{% endif %}
+{% if error %}
+  <p class="error">Error: {{ error }}</p>
+{% endif %}
+{% endblock %}
