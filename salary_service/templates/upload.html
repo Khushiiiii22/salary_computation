@@ -18,7 +18,8 @@
     color: #334E68;
   }
 
-  input[type="file"] {
+  input[type="file"],
+  input[type="date"] {
     display: block;
     width: 100%;
     padding: 0.35rem;
@@ -76,6 +77,12 @@
 
   <label for="deductions_file">Advances and Personal Expenses Excel file:</label>
   <input type="file" id="deductions_file" name="deductions_file" accept=".xlsx" required />
+
+  <label for="pay_period_start">Payroll Period Start:</label>
+  <input type="date" id="pay_period_start" name="pay_period_start" required />
+
+  <label for="pay_period_end">Payroll Period End:</label>
+  <input type="date" id="pay_period_end" name="pay_period_end" required />
 
   <button type="submit">Compute Salary</button>
 </form>

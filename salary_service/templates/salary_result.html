@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .salary-table-heading {
+    text-align: center;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #185bbc;
+    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.01em;
+  }
+  .salary-period-info, .salary-summary {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1.1rem;
+    font-size: 1.15rem;
+    color: #2060a7;
+  }
+  .salary-summary {
+    background: #eaf6ff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: #1160af;
+    font-weight: 500;
+    font-size: 1.07rem;
+    margin-top: 0;
+    margin-bottom: 1.45rem;
+    display: block;
+  }
+  .table-overflow-x {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+  }
+  .salary-table {
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 750px;
+    max-width: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.98rem;
+    background: #fff;
+  }
+  .salary-table th, .salary-table td {
+    border: 1.5px solid #e1e4ee;
+    padding: 11px 16px;
+    text-align: center;
+    vertical-align: middle;
+    background: none;
+  }
+  .salary-table th {
+    background-color: #2277ee;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.05rem;
+  }
+  .salary-table tr:nth-child(even) td {
+    background-color: #f1f6fc;
+  }
+  .salary-table tr:hover td {
+    background-color: #ddeaff;
+    transition: background 0.18s;
+  }
+  .button-container {
+    margin-top: 18px;
+    text-align: center;
+    width: 100%;
+  }
+  .btn-primary {
+    background-color: #2277ee;
+    color: #fff;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.07rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.20s;
+    margin-bottom: 0.4rem;
+  }
+  .btn-primary:hover {
+    background-color: #1957a6;
+    color: #fff;
+  }
+  @media (max-width: 900px) {
+    .salary-table { min-width: 650px; font-size: 0.89rem; }
+    .salary-table-heading { font-size: 1.25rem; }
+  }
+  @media (max-width: 700px) {
+    .salary-table { min-width: 480px; font-size: 0.82rem; }
+  }
+</style>
+
+<div class="salary-table-heading">Salary Details</div>
+{% if pay_period_start and pay_period_end %}
+  <div class="salary-period-info">
+    <b>Payroll Period:</b> {{ pay_period_start }} &ndash; {{ pay_period_end }}
+  </div>
+{% endif %}
+{% if total_paid and total_employees %}
+  <div class="salary-summary">
+    Total Net Paid: ₹{{ "{:,.2f}".format(total_paid) }} &nbsp;|&nbsp; Employees: {{ total_employees }}
+  </div>
+{% endif %}
+<div class="table-overflow-x">
+  {% if table_html %}
+    {{ table_html | safe | replace('class="dataframe"', 'class="salary-table"') }}
+  {% else %}
+    <div style="text-align:center;color:#d9534f;margin-top:2rem;">No salary data available for the selected period.</div>
+  {% endif %}
+</div>
+<div class="button-container">
+  <a href="{{ url_for('upload') }}" class="btn-primary">Back to Upload</a>
+</div>
+{% endblock %}
