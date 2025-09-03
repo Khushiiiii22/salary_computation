@@ -1,8 +1,9 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect
 from werkzeug.utils import secure_filename
-from salary_processor import compute_salary
-from tally_export import export_to_tally_excel
+from .salary_processor import compute_salary
+from .tally_export import export_to_tally_excel
+
 
 # Supabase imports
 from dotenv import load_dotenv
